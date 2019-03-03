@@ -1,6 +1,12 @@
 <section>
   <h2><%= @dog.name %></h2>
+  <% if @like %>
+    <%= link_to "Unlike", like_url(@like), method: :delete %>
+  <% else %>
+    <%= link_to "Like", dog_likes_url(@dog), method: :post %>
+  <% end %>
 
+  <br>
   <% @dog.images.each do |image| %>
     <%= image_tag url_for(image), alt: "Photo of #{@dog.name}" %>
   <% end %>

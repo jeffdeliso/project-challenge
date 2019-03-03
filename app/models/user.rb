@@ -27,4 +27,6 @@ class User < ApplicationRecord
   has_many :dogs,
     foreign_key: :owner_id
 
+  has_many :likes
+  
 end
