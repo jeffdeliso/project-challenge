@@ -1,6 +1,6 @@
 ## Note
 
-The specs no longer pass becuase I require a user to be signed in to create, edit, delete, or like a dog. I also validate for the presence of a `owner_id` when a dog is created.
+The specs no longer pass becuase I require a user to be signed in to create, edit, delete, or like a dog. I also validate for the presence of a `owner_id` when a dog is created.  I also modified the seeds so that all dogs now have an owner.
 
 app/controllers/application_controller.rb
 ```ruby
