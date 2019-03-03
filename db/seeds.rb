@@ -8,9 +8,6 @@
 Dog.delete_all
 User.delete_all
 Like.delete_all
-# ActiveRecord::Base.connection.reset_sequence!('dogs')
-# ActiveRecord::Base.connection.reset_sequence!('users')
-# ActiveRecord::Base.connection.reset_sequence!('likes')
 
 dogs = [
   {
