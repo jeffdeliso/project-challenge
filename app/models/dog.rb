@@ -9,8 +9,12 @@
 #  description   :text
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  owner_id      :integer
 #
 
 class Dog < ApplicationRecord
   has_many_attached :images
+
+  belongs_to :owner,
+    class_name: :User
 end
