@@ -1,6 +1,7 @@
 <section>
-  <h2><%= @dog.name %></h2>
-  <h5>Likes: <%= Like.where(dog_id: @dog.id).count %></h5>
+  <h2>Name: <%= @dog.name %></h2>
+  <h3>Owner: <%= @dog.owner.email %></h3>
+  <h3>Likes: <%= Like.where(dog_id: @dog.id).count %></h3>
 
   <% if current_user && @dog.owner_id != current_user.id %>
     <% if @like %>
@@ -20,7 +21,7 @@
 
   <% if current_user && current_user.id == @dog.owner_id  %>
     <%= link_to "Edit #{@dog.name}'s Profile", edit_dog_path %>
+    <br>
+    <%= link_to "Delete #{@dog.name}'s Profile", dog_path, method: :delete, data: { confirm: 'Are you sure?' } %>
   <% end %>
-  <br>
-  <%= link_to "Delete #{@dog.name}'s Profile", dog_path, method: :delete, data: { confirm: 'Are you sure?' } %>
 </section>

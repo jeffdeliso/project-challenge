@@ -5,6 +5,12 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Dog.delete_all
+User.delete_all
+Like.delete_all
+# ActiveRecord::Base.connection.reset_sequence!('dogs')
+# ActiveRecord::Base.connection.reset_sequence!('users')
+# ActiveRecord::Base.connection.reset_sequence!('likes')
 
 dogs = [
   {
@@ -49,8 +55,10 @@ dogs = [
   },
 ]
 
+user = User.create!(email: 'jeff@jeff.com', password: '111111', password_confirmation: '111111')
+
 dogs.each do |dog|
-  dog = Dog.find_or_create_by(name: dog[:name], description: dog[:description])
+  dog = Dog.find_or_create_by(name: dog[:name], description: dog[:description], owner_id: user.id)
   directory_name = File.join(Rails.root, 'db', 'seed', "#{dog[:name].downcase}", "*")
 
   Dir.glob(directory_name).each do |filename|

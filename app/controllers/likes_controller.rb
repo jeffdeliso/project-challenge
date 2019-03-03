@@ -1,5 +1,6 @@
 class LikesController < ApplicationController
   before_action :set_like, only: :destroy
+  before_action :ensure_loggin
 
   def create
     dog_id = params[:dog_id]
@@ -23,5 +24,5 @@ class LikesController < ApplicationController
     def set_like
       @like = Like.find(params[:id])
     end
-    
+
 end

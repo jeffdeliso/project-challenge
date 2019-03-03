@@ -1,6 +1,7 @@
 class DogsController < ApplicationController
   before_action :set_dog, only: [:show, :edit, :update, :destroy]
-  before_action :ensure_owner, only: [:edit, :update]
+  before_action :ensure_loggin, only: [:create, :new]
+  before_action :ensure_owner, only: [:edit, :update, :destroy]
 
   # GET /dogs
   # GET /dogs.json
@@ -32,7 +33,7 @@ class DogsController < ApplicationController
   # POST /dogs.json
   def create
     @dog = Dog.new(dog_params)
-    @dog.owner_id = current_user.id
+    @dog.owner_id = current_user.id if current_user
 
     respond_to do |format|
       if @dog.save
@@ -81,6 +82,6 @@ class DogsController < ApplicationController
     end
 
     def ensure_owner
-      redirect_to @dog if current_user.id != @dog.owner_id
+      redirect_to @dog unless current_user && current_user.id == @dog.owner_id
     end
 end

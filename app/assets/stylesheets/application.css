@@ -19,3 +19,7 @@ header {
   display: flex;
   justify-content: space-between;
 }
+
+img {
+  max-width: 60vw;
+}
