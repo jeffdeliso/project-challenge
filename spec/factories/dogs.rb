@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: dogs
+#
+#  id            :integer          not null, primary key
+#  name          :string
+#  birthday      :datetime
+#  adoption_date :datetime
+#  description   :text
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
 FactoryBot.define do
   factory :dog do
     sequence :name do |n|
