@@ -1,16 +1,22 @@
 class DogsController < ApplicationController
   before_action :set_dog, only: [:show, :edit, :update, :destroy]
   before_action :ensure_owner, only: [:edit, :update]
+
   # GET /dogs
   # GET /dogs.json
   def index
-    @dogs = Dog.paginate(:page => params[:page], :per_page => 5)
+    if params[:sort] == 'likes'
+      @dogs = Dog.paginate(:page => params[:page], :per_page => 5).joins("LEFT OUTER JOIN likes ON likes.dog_id = dogs.id 
+                   AND likes.created_at >= datetime('now', '-1 Hour')").group(:id).order('COUNT(likes.id) DESC')
+    else
+      @dogs = Dog.paginate(:page => params[:page], :per_page => 5).order(created_at: :asc)
+    end
   end
 
   # GET /dogs/1
   # GET /dogs/1.json
   def show
-    @like = Like.find_by(dog_id: @dog.id, user_id: current_user.id)
+    @like = Like.find_by(dog_id: @dog.id, user_id: current_user.id) if current_user
   end
 
   # GET /dogs/new
@@ -76,9 +82,5 @@ class DogsController < ApplicationController
 
     def ensure_owner
       redirect_to @dog if current_user.id != @dog.owner_id
-    end
-
-    def ensure_not_owner
-    
     end
 end

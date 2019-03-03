@@ -1,2 +1,8 @@
+<% if request.params[:sort] == 'likes' %>
+  <%= link_to 'Sort by Date Created', request.params.merge(sort: "date")%>
+<% else %>
+  <%= link_to 'Sort by Likes in Last Hour', request.params.merge(sort: "likes")%>
+<% end %>
+
 <%= render partial: 'thumbnail', collection: @dogs, as: :dog %>
 <%= will_paginate @dogs, page_links: true %>

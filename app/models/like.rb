@@ -22,4 +22,5 @@ class Like < ApplicationRecord
     def not_owner
       errors.add(:user, "can't be dogs owner") if self.user_id == self.dog.owner_id
     end
+    
 end
