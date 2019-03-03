@@ -1,6 +1,6 @@
 class DogsController < ApplicationController
   before_action :set_dog, only: [:show, :edit, :update, :destroy]
-
+  before_action :ensure_owner, only: [:edit, :update]
   # GET /dogs
   # GET /dogs.json
   def index
@@ -25,7 +25,8 @@ class DogsController < ApplicationController
   # POST /dogs.json
   def create
     @dog = Dog.new(dog_params)
-    debugger
+    @dog.owner_id = current_user.id
+
     respond_to do |format|
       if @dog.save
         format.html { redirect_to @dog, notice: 'Dog was successfully created.' }
@@ -70,5 +71,13 @@ class DogsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def dog_params
       params.require(:dog).permit(:name, :description, images: [])
+    end
+
+    def ensure_owner
+      redirect_to @dog if current_user.id != @dog.owner_id
+    end
+
+    def ensure_not_owner
+    
     end
 end
