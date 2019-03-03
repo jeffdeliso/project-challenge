@@ -17,8 +17,7 @@ class Dog < ApplicationRecord
   has_many_attached :images
 
   belongs_to :owner,
-    class_name: :User,
-    optional: :true
+    class_name: :User
 
   has_many :likes
 
